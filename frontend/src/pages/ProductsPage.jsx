@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getProducts } from "../api/products";
 import Navbar from "../components/Navbar";
+import StatusBadge from "../components/StatusBadge";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState([]);
@@ -67,9 +68,19 @@ export default function ProductsPage() {
     <>
       <Navbar />
 
-      <main style={{ padding: "24px" }}>
-        <h1>Product Catalog</h1>
+      <main className="page-container">
+        <div className="hero-card">
+        <div className="page-header">
+            <div className="page-title-block">
+            <h1>Product Catalog</h1>
+            <p className="page-subtitle">
+                Search and inspect all maintained and externally available product coverage.
+            </p>
+            </div>
+        </div>
+        </div>
 
+        <section className="glass-card" style = {{ marginBotton : "20px"}}>
         <form
           onSubmit={handleFilterSubmit}
           style={{
@@ -137,16 +148,15 @@ export default function ProductsPage() {
             </button>
           </div>
         </form>
+        </section>
 
         {loading && <p>Loading products...</p>}
         {error && <p style={{ color: "red" }}>{error}</p>}
 
         {!loading && !error && (
+        <section className = "glass-card">
           <table
-            border="1"
-            cellPadding="8"
-            cellSpacing="0"
-            style={{ width: "100%", borderCollapse: "collapse" }}
+            className="data-table"
           >
             <thead>
               <tr>
@@ -174,9 +184,21 @@ export default function ProductsPage() {
                   <td>{product.exchange}</td>
                   <td>{product.market}</td>
                   <td>{product.asset_class}</td>
-                  <td>{product.is_maintained ? "Yes" : "No"}</td>
-                  <td>{product.has_databento_support ? "Yes" : "No"}</td>
-                  <td>{product.has_massive_support ? "Yes" : "No"}</td>
+                  <td>
+                    <span className={product.is_maintained ? "status-badge success" : "status-badge danger"}>
+                        {product.is_maintained ? "Yes" : "No"}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={product.has_databento_support ? "status-badge success" : "status-badge"}>
+                        {product.has_databento_support ? "Yes" : "No"}
+                    </span>
+                  </td>
+                  <td>
+                    <span className={product.has_massive_support ? "status-badge success" : "status-badge"}>
+                        {product.has_massive_support ? "Yes" : "No"}
+                    </span>
+                  </td>
                   <td>{product.preferred_source}</td>
                 </tr>
               ))}
@@ -190,6 +212,7 @@ export default function ProductsPage() {
               )}
             </tbody>
           </table>
+        </section>
         )}
       </main>
     </>

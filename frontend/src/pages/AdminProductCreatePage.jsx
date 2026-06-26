@@ -46,7 +46,11 @@ export default function AdminProductCreatePage() {
       <Navbar />
 
       <main style={{ padding: "24px" }}>
-        <Link to="/admin/products">← Back to admin products</Link>
+        <Link to="/admin/products">
+        <button type="button" className="button-secondary">
+            ← Back to admin products
+        </button>
+        </Link>
 
         <h1>Add Product</h1>
 

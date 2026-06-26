@@ -8,7 +8,7 @@ import AdminDataAvailabilityEditor from "../components/AdminDataAvailabilityEdit
 import AdminProductLinksEditor from "../components/AdminProductLinksEditor";
 import AdminContinuousSeriesEditor from "../components/AdminContinuousSeriesEditor";
 import AdminContractStatusEditor from "../components/AdminContractStatusEditor";
-
+import Toast from "../components/Toast";
 
 export default function AdminProductEditPage() {
   const { productId } = useParams();
@@ -71,14 +71,36 @@ export default function AdminProductEditPage() {
     <>
       <Navbar />
 
-      <main style={{ padding: "24px" }}>
-        <Link to="/admin/products">← Back to admin products</Link>
+      <main className="page-container">
+        <Link to="/admin/products">
+        <button type="button" className="button-secondary">
+            ← Back to admin products
+        </button>
+        </Link>
 
-        <h1>Edit Product</h1>
+        <div className="hero-card">
+        <div className="page-header">
+            <div className="page-title-block">
+            <h1>Edit Product</h1>
+            <p className="page-subtitle">
+                Update product metadata, data coverage, links, roll rules, and active contract status.
+            </p>
+            </div>
+        </div>
+        </div>
 
         {loading && <p>Loading product...</p>}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {success && <p style={{ color: "green" }}>{success}</p>}
+        <Toast
+        type="error"
+        message={error}
+        onClose={() => setError("")}
+        />
+
+        <Toast
+        type="success"
+        message={success}
+        onClose={() => setSuccess("")}
+        />
 
         {formData && (
           <>

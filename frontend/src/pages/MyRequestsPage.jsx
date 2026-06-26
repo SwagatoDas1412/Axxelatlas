@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getMyRequests } from "../api/requests";
 import Navbar from "../components/Navbar";
+import StatusBadge from "../components/StatusBadge";
 
 export default function MyRequestsPage() {
   const [requests, setRequests] = useState([]);
@@ -30,9 +31,18 @@ export default function MyRequestsPage() {
     <>
       <Navbar />
 
-      <main style={{ padding: "24px" }}>
+      <main className="page-container">
         <div style={{ display: "flex", alignItems: "center" }}>
-          <h1>My Requests</h1>
+        <div className="hero-card">
+        <div className="page-header">
+            <div className="page-title-block">
+            <h1>My Requests</h1>
+            <p className="page-subtitle">
+                Track your submitted data requests and current completion status.
+            </p>
+            </div>
+        </div>
+        </div>
 
           <Link to="/requests/new" style={{ marginLeft: "auto" }}>
             <button>New Request</button>
@@ -44,10 +54,7 @@ export default function MyRequestsPage() {
 
         {!loading && !error && (
           <table
-            border="1"
-            cellPadding="8"
-            cellSpacing="0"
-            style={{ width: "100%", borderCollapse: "collapse" }}
+            className="data-table"
           >
             <thead>
               <tr>
@@ -80,7 +87,7 @@ export default function MyRequestsPage() {
                   </td>
                   <td>{request.priority}</td>
                   <td>
-                    <strong>{request.status}</strong>
+                    <StatusBadge status = {request.status} />
                   </td>
                   <td>{request.created_at}</td>
                 </tr>

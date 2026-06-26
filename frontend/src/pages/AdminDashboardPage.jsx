@@ -6,7 +6,7 @@ export default function AdminDashboardPage() {
     <>
       <Navbar />
 
-      <main style={{ padding: "24px" }}>
+      <main className="page-container">
         <h1>Admin Panel</h1>
 
         <p>Manage product metadata, source coverage, and data requests.</p>

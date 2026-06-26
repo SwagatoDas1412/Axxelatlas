@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createContractStatus, updateContractStatus } from "../api/admin";
 import { getProductContractStatus } from "../api/products";
+import Toast from "../components/Toast";
 
 const emptyForm = {
   active_contract: "",
@@ -128,8 +129,17 @@ export default function AdminContractStatusEditor({ productId }) {
       </p>
 
       {loading && <p>Loading contract status...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      <Toast
+        type="error"
+        message={error}
+        onClose={() => setError("")}
+        />
+
+        <Toast
+        type="success"
+        message={success}
+        onClose={() => setSuccess("")}
+        />
 
       {!loading && (
         <form onSubmit={handleSubmit}>

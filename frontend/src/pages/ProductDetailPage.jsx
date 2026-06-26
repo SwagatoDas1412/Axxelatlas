@@ -60,8 +60,8 @@ export default function ProductDetailPage() {
     return (
       <>
         <Navbar />
-        <main style={{ padding: "24px" }}>
-          <p>Loading product details...</p>
+        <main className="page-container">
+          <div className="message info">Loading product details...</div>
         </main>
       </>
     );
@@ -71,9 +71,13 @@ export default function ProductDetailPage() {
     return (
       <>
         <Navbar />
-        <main style={{ padding: "24px" }}>
-          <p style={{ color: "red" }}>{error}</p>
-          <Link to="/products">Back to products</Link>
+        <main className="page-container">
+          <div className="message error">{error}</div>
+          <Link to="/admin/products">
+        <button type="button" className="button-secondary">
+            ← Back to products
+        </button>
+        </Link>
         </main>
       </>
     );
@@ -83,9 +87,13 @@ export default function ProductDetailPage() {
     return (
       <>
         <Navbar />
-        <main style={{ padding: "24px" }}>
-          <p>Product not found.</p>
-          <Link to="/products">Back to products</Link>
+        <main className="page-container">
+          <div className="message error">Product not found.</div>
+          <Link to="/admin/products">
+        <button type="button" className="button-secondary">
+            ← Back to products
+        </button>
+        </Link>
         </main>
       </>
     );
@@ -95,29 +103,31 @@ export default function ProductDetailPage() {
     <>
       <Navbar />
 
-      <main style={{ padding: "24px" }}>
-        <Link to="/products">← Back to products</Link>
+      <main className="page-container">
+        <Link to="/admin/products">
+        <button type="button" className="button-secondary">
+            ← Back to products
+        </button>
+        </Link>
 
-        <h1>
-          {product.product_name} ({product.symbol})
-        </h1>
+        <div className="hero-card">
+          <div className="page-header">
+            <div className="page-title-block">
+              <h1>
+                {product.product_name} ({product.symbol})
+              </h1>
+              <p className="page-subtitle">
+                Coverage, active contract, links, continuous construction rules,
+                and request actions.
+              </p>
+            </div>
+          </div>
+        </div>
 
-        <section
-          style={{
-            border: "1px solid #ddd",
-            padding: "16px",
-            marginBottom: "20px",
-          }}
-        >
+        <section className="glass-card" style={{ marginBottom: "20px" }}>
           <h2>Overview</h2>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, minmax(180px, 1fr))",
-              gap: "12px",
-            }}
-          >
+          <div className="card-grid">
             <InfoItem label="Product Name" value={product.product_name} />
             <InfoItem label="Symbol" value={product.symbol} />
             <InfoItem label="Exchange" value={product.exchange} />
@@ -136,7 +146,10 @@ export default function ProductDetailPage() {
               label="Massive Support"
               value={product.has_massive_support ? "Yes" : "No"}
             />
-            <InfoItem label="Preferred Source" value={product.preferred_source} />
+            <InfoItem
+              label="Preferred Source"
+              value={product.preferred_source}
+            />
             <InfoItem label="Maintainer" value={product.maintainer} />
           </div>
 
@@ -146,23 +159,21 @@ export default function ProductDetailPage() {
         </section>
 
         <section
+          className="glass-card"
           style={{
-            border: "1px solid #ddd",
-            padding: "16px",
             marginBottom: "20px",
-            background: "#f8f8f8",
+            borderColor: "rgba(56, 189, 248, 0.35)",
+            boxShadow:
+              "0 28px 90px rgba(0,0,0,0.38), 0 0 50px rgba(56,189,248,0.16)",
           }}
         >
-          <h2>Current Active Contract</h2>
+          <h2>
+            Current Active Contract{" "}
+            <span className="stat-pill">Live Metadata</span>
+          </h2>
 
           {contractStatus ? (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3, minmax(180px, 1fr))",
-                gap: "12px",
-              }}
-            >
+            <div className="card-grid">
               <InfoItem
                 label="Active Contract"
                 value={contractStatus.active_contract}
@@ -175,7 +186,10 @@ export default function ProductDetailPage() {
                 label="Days to Expiry"
                 value={contractStatus.days_to_expiry}
               />
-              <InfoItem label="Next Contract" value={contractStatus.next_contract} />
+              <InfoItem
+                label="Next Contract"
+                value={contractStatus.next_contract}
+              />
               <InfoItem
                 label="Next Contract Expiry"
                 value={contractStatus.next_contract_expiry}
@@ -196,87 +210,65 @@ export default function ProductDetailPage() {
           )}
         </section>
 
-        <section
-          style={{
-            border: "1px solid #ddd",
-            padding: "16px",
-            marginBottom: "20px",
-          }}
-        >
+        <section className="glass-card" style={{ marginBottom: "20px" }}>
           <h2>Data Availability</h2>
 
-          <table
-            border="1"
-            cellPadding="8"
-            cellSpacing="0"
-            style={{ width: "100%", borderCollapse: "collapse" }}
-          >
-            <thead>
-              <tr>
-                <th>Data Type</th>
-                <th>Granularity</th>
-                <th>Source</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Update Frequency</th>
-                <th>Last Verified</th>
-                <th>Notes</th>
-              </tr>
-            </thead>
+          <div className="table-card">
+            <div className="table-scroll">
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Data Type</th>
+                    <th>Granularity</th>
+                    <th>Source</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Update Frequency</th>
+                    <th>Last Verified</th>
+                    <th>Notes</th>
+                  </tr>
+                </thead>
 
-            <tbody>
-              {dataAvailability.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.data_type}</td>
-                  <td>{item.granularity}</td>
-                  <td>{item.source}</td>
-                  <td>{item.start_date}</td>
-                  <td>{item.end_date || "Present"}</td>
-                  <td>{item.update_frequency}</td>
-                  <td>{item.last_verified_at}</td>
-                  <td>{item.notes}</td>
-                </tr>
-              ))}
+                <tbody>
+                  {dataAvailability.map((item) => (
+                    <tr key={item.id}>
+                      <td>{item.data_type}</td>
+                      <td>{item.granularity || "N/A"}</td>
+                      <td>{item.source || "N/A"}</td>
+                      <td>{item.start_date || "N/A"}</td>
+                      <td>{item.end_date || "Present"}</td>
+                      <td>{item.update_frequency || "N/A"}</td>
+                      <td>{item.last_verified_at || "N/A"}</td>
+                      <td>{item.notes || "N/A"}</td>
+                    </tr>
+                  ))}
 
-              {dataAvailability.length === 0 && (
-                <tr>
-                  <td colSpan="8" style={{ textAlign: "center" }}>
-                    No data availability records found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                  {dataAvailability.length === 0 && (
+                    <tr>
+                      <td colSpan="8" className="empty-state">
+                        No data availability records found.
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </section>
 
-        <section
-          style={{
-            border: "1px solid #ddd",
-            padding: "16px",
-            marginBottom: "20px",
-          }}
-        >
+        <section className="glass-card" style={{ marginBottom: "20px" }}>
           <h2>Continuous Series Rules</h2>
 
           {continuousRules.length > 0 ? (
             continuousRules.map((rule) => (
               <div
                 key={rule.id}
-                style={{
-                  border: "1px solid #eee",
-                  padding: "12px",
-                  marginBottom: "12px",
-                }}
+                className="glass-card"
+                style={{ marginBottom: "12px" }}
               >
                 <h3>{rule.rule_name || "Unnamed Rule"}</h3>
 
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "repeat(3, minmax(180px, 1fr))",
-                    gap: "12px",
-                  }}
-                >
+                <div className="card-grid">
                   <InfoItem label="Roll Method" value={rule.roll_method} />
                   <InfoItem
                     label="Roll Days Before Expiry"
@@ -289,7 +281,11 @@ export default function ProductDetailPage() {
                 </div>
 
                 {rule.description && <p>{rule.description}</p>}
-                {rule.notes && <p><strong>Notes:</strong> {rule.notes}</p>}
+                {rule.notes && (
+                  <p>
+                    <strong>Notes:</strong> {rule.notes}
+                  </p>
+                )}
               </div>
             ))
           ) : (
@@ -297,20 +293,14 @@ export default function ProductDetailPage() {
           )}
         </section>
 
-        <section
-          style={{
-            border: "1px solid #ddd",
-            padding: "16px",
-            marginBottom: "20px",
-          }}
-        >
+        <section className="glass-card" style={{ marginBottom: "20px" }}>
           <h2>External Links</h2>
 
           {links.length > 0 ? (
             <ul>
               {links.map((link) => (
                 <li key={link.id}>
-                  <strong>{link.link_type}:</strong>{" "}
+                  <strong>{link.link_type || "Link"}:</strong>{" "}
                   <a href={link.url} target="_blank" rel="noreferrer">
                     {link.title}
                   </a>
@@ -322,15 +312,12 @@ export default function ProductDetailPage() {
           )}
         </section>
 
-        <section
-          style={{
-            border: "1px solid #ddd",
-            padding: "16px",
-            marginBottom: "20px",
-          }}
-        >
+        <section className="glass-card" style={{ marginBottom: "20px" }}>
           <h2>Data Request</h2>
-          <p>Request missing data, a backfill, new granularity, or report an issue for this product.</p>
+          <p>
+            Request missing data, a backfill, new granularity, or report an
+            issue for this product.
+          </p>
 
           <Link to={`/requests/new?productId=${product.id}`}>
             <button>Request Data</button>
@@ -343,9 +330,9 @@ export default function ProductDetailPage() {
 
 function InfoItem({ label, value }) {
   return (
-    <div>
-      <div style={{ fontSize: "12px", color: "#666" }}>{label}</div>
-      <div style={{ fontWeight: "bold" }}>
+    <div className="info-item">
+      <div className="info-label">{label}</div>
+      <div className="info-value">
         {value === null || value === undefined || value === "" ? "N/A" : value}
       </div>
     </div>

@@ -5,7 +5,7 @@ import {
   updateProductLink,
   deleteProductLink,
 } from "../api/admin";
-
+import Toast from "../components/Toast";
 
 const emptyForm = {
   link_type: "",
@@ -122,8 +122,17 @@ export default function AdminProductLinksEditor({ productId }) {
       <h2>Manage Product Links</h2>
 
       {loading && <p>Loading product links...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      <Toast
+        type="error"
+        message={error}
+        onClose={() => setError("")}
+        />
+
+        <Toast
+        type="success"
+        message={success}
+        onClose={() => setSuccess("")}
+        />
 
       {!loading && (
         <table
@@ -152,11 +161,12 @@ export default function AdminProductLinksEditor({ productId }) {
                   </a>
                 </td>
                 <td>
-                  <button type="button" onClick={() => startEdit(link)}>
+                  <button type="button" className="button-secondary" onClick={() => startEdit(link)}>
                     Edit
                   </button>
                   <button
                     type="button"
+                    className="button-danger"
                     onClick={() => handleDelete(link.id)}
                     style={{ marginLeft: "8px" }}
                     >
@@ -232,7 +242,7 @@ export default function AdminProductLinksEditor({ productId }) {
           </button>
 
           {editingId && (
-            <button type="button" onClick={resetForm} style={{ marginLeft: "8px" }}>
+            <button type="button" className="button-secondary" onClick={resetForm} style={{ marginLeft: "8px" }}>
               Cancel Edit
             </button>
           )}

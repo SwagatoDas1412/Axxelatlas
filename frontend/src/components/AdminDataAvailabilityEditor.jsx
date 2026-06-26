@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { createDataAvailability, updateDataAvailability, deleteDataAvailability} from "../api/admin";
 import { getProductDataAvailability } from "../api/products";
+import Toast from "../components/Toast";
 
 const emptyForm = {
   data_type: "",
@@ -138,8 +139,17 @@ export default function AdminDataAvailabilityEditor({ productId }) {
       <h2>Manage Data Availability</h2>
 
       {loading && <p>Loading data availability...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      <Toast
+        type="error"
+        message={error}
+        onClose={() => setError("")}
+        />
+
+        <Toast
+        type="success"
+        message={success}
+        onClose={() => setSuccess("")}
+        />
 
       {!loading && (
         <table
@@ -172,11 +182,12 @@ export default function AdminDataAvailabilityEditor({ productId }) {
                 <td>{item.update_frequency || "N/A"}</td>
                 <td>{item.last_verified_at || "N/A"}</td>
                 <td>
-                  <button type="button" onClick={() => startEdit(item)}>
+                  <button type="button" className="button-secondary" onClick={() => startEdit(item)}>
                     Edit
                   </button>
                   <button
                     type="button"
+                    className="button-danger"
                     onClick={() => handleDelete(item.id)}
                     style={{ marginLeft: "8px" }}
                 >
@@ -285,6 +296,7 @@ export default function AdminDataAvailabilityEditor({ productId }) {
           {editingId && (
             <button
               type="button"
+              className="button-secondary"
               onClick={resetForm}
               style={{ marginLeft: "8px" }}
             >

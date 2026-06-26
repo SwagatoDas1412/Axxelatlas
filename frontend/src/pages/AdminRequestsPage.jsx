@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { getAdminRequests, updateAdminRequest } from "../api/admin";
 import Navbar from "../components/Navbar";
+import StatusBadge from "../components/StatusBadge";
+import Toast from "../components/Toast";
 
 export default function AdminRequestsPage() {
   const [requests, setRequests] = useState([]);
@@ -76,19 +78,34 @@ export default function AdminRequestsPage() {
     <>
       <Navbar />
 
-      <main style={{ padding: "24px" }}>
-        <h1>Manage Data Requests</h1>
+      <main className="page-container">
+        <div className="hero-card">
+        <div className="page-header">
+            <div className="page-title-block">
+            <h1>Manage Data Requests</h1>
+            <p className="page-subtitle">
+                Review researcher requests, update status, and maintain admin notes.
+            </p>
+            </div>
+        </div>
+        </div>
 
         {loading && <p>Loading requests...</p>}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        {success && <p style={{ color: "green" }}>{success}</p>}
+        <Toast
+        type="error"
+        message={error}
+        onClose={() => setError("")}
+        />
+
+        <Toast
+        type="success"
+        message={success}
+        onClose={() => setSuccess("")}
+        />
 
         {!loading && !error && (
           <table
-            border="1"
-            cellPadding="8"
-            cellSpacing="0"
-            style={{ width: "100%", borderCollapse: "collapse" }}
+            className="data-table"
           >
             <thead>
               <tr>
@@ -132,16 +149,17 @@ export default function AdminRequestsPage() {
                     <td>{request.granularity || "N/A"}</td>
 
                     <td>
-                      <select
+                    <select
+                        className={`status-select status-${edited.status}`}
                         value={edited.status}
                         onChange={(event) =>
-                          handleFieldChange(
+                        handleFieldChange(
                             request.request_id,
                             "status",
                             event.target.value
-                          )
+                        )
                         }
-                      >
+                    >
                         <option value="submitted">submitted</option>
                         <option value="under_review">under_review</option>
                         <option value="approved">approved</option>
@@ -149,10 +167,8 @@ export default function AdminRequestsPage() {
                         <option value="completed">completed</option>
                         <option value="rejected">rejected</option>
                         <option value="duplicate">duplicate</option>
-                        <option value="needs_clarification">
-                          needs_clarification
-                        </option>
-                      </select>
+                        <option value="needs_clarification">needs_clarification</option>
+                    </select>
                     </td>
 
                     <td style={{ maxWidth: "260px" }}>

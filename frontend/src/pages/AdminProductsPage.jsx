@@ -30,9 +30,18 @@ export default function AdminProductsPage() {
     <>
       <Navbar />
 
-      <main style={{ padding: "24px" }}>
+      <main className="page-container">
         <div style={{ display: "flex", alignItems: "center" }}>
-          <h1>Manage Products</h1>
+          <div className="hero-card">
+        <div className="page-header">
+            <div className="page-title-block">
+            <h1>Manage Products</h1>
+            <p className="page-subtitle">
+                Create and maintain product metadata, source support, and research visibility.
+            </p>
+            </div>
+        </div>
+        </div>
 
           <Link to="/admin/products/new" style={{ marginLeft: "auto" }}>
             <button>Add Product</button>
@@ -44,10 +53,7 @@ export default function AdminProductsPage() {
 
         {!loading && !error && (
           <table
-            border="1"
-            cellPadding="8"
-            cellSpacing="0"
-            style={{ width: "100%", borderCollapse: "collapse" }}
+            className="data-table"
           >
             <thead>
               <tr>
@@ -58,7 +64,7 @@ export default function AdminProductsPage() {
                 <th>Market</th>
                 <th>Maintained</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th style={{textAlign: "center"}}>Actions</th>
               </tr>
             </thead>
 
@@ -73,10 +79,22 @@ export default function AdminProductsPage() {
                   <td>{product.is_maintained ? "Yes" : "No"}</td>
                   <td>{product.status}</td>
                   <td>
-                    <Link to={`/products/${product.id}`}>View</Link>
-                    {" | "}
-                    <Link to={`/admin/products/${product.id}/edit`}>Edit</Link>
-                  </td>
+                    <div className="table-actions" style={{justifyContent:"center"}}>
+                        <Link
+                        to={`/products/${product.id}`}
+                        className="action-link action-view"
+                        >
+                        View
+                        </Link>
+
+                        <Link
+                        to={`/admin/products/${product.id}/edit`}
+                        className="action-link action-edit"
+                        >
+                        Edit
+                        </Link>
+                    </div>
+                    </td>
                 </tr>
               ))}
 

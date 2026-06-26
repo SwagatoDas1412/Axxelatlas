@@ -5,6 +5,7 @@ import {
   deleteContinuousSeriesRule
 } from "../api/admin";
 import { getProductContinuousSeriesRule } from "../api/products";
+import Toast from "../components/Toast";
 
 const emptyForm = {
   rule_name: "",
@@ -142,8 +143,17 @@ export default function AdminContinuousSeriesEditor({ productId }) {
       <h2>Manage Continuous Series Rules</h2>
 
       {loading && <p>Loading continuous series rules...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      <Toast
+        type="error"
+        message={error}
+        onClose={() => setError("")}
+        />
+
+        <Toast
+        type="success"
+        message={success}
+        onClose={() => setSuccess("")}
+        />
 
       {!loading && (
         <table
@@ -176,11 +186,12 @@ export default function AdminContinuousSeriesEditor({ productId }) {
                 <td>{rule.adjustment_method || "N/A"}</td>
                 <td>{rule.description || "N/A"}</td>
                 <td>
-                  <button type="button" onClick={() => startEdit(rule)}>
+                  <button type="button" className="button-secondary" onClick={() => startEdit(rule)}>
                     Edit
                   </button>
                   <button
                     type="button"
+                    className="button-danger"
                     onClick={() => handleDelete(rule.id)}
                     style={{ marginLeft: "8px" }}
                 >
@@ -297,6 +308,7 @@ export default function AdminContinuousSeriesEditor({ productId }) {
           {editingId && (
             <button
               type="button"
+              className="button-secondary"
               onClick={resetForm}
               style={{ marginLeft: "8px" }}
             >
