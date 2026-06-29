@@ -15,8 +15,9 @@ export default function ProductForm({
   };
 
   return (
-    <form onSubmit={onSubmit} style={{ maxWidth: "900px" }}>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+    <section className="form-card">
+    <form onSubmit={onSubmit}>
+      <div className = "form-grid-2">
         <Input label="Product Name" name="product_name" value={formData.product_name} onChange={handleChange} required />
         <Input label="Symbol" name="symbol" value={formData.symbol} onChange={handleChange} required />
         <Input label="Exchange" name="exchange" value={formData.exchange} onChange={handleChange} />
@@ -53,42 +54,39 @@ export default function ProductForm({
         />
       </div>
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "16px" }}>
-        <label>
-          <input
-            type="checkbox"
+      <div className="checkbox-row">
+        <CheckboxCard
+            label="Maintained"
+            subtitle="Visible and actively supported"
             name="is_maintained"
             checked={formData.is_maintained}
             onChange={handleChange}
-          />
-          Maintained
-        </label>
+        />
 
-        <label>
-          <input
-            type="checkbox"
+        <CheckboxCard
+            label="Databento Support"
+            subtitle="Coverage available via Databento"
             name="has_databento_support"
             checked={formData.has_databento_support}
             onChange={handleChange}
-          />
-          Databento Support
-        </label>
+        />
 
-        <label>
-          <input
-            type="checkbox"
+        <CheckboxCard
+            label="Massive Support"
+            subtitle="Coverage available via Massive"
             name="has_massive_support"
             checked={formData.has_massive_support}
             onChange={handleChange}
-          />
-          Massive Support
-        </label>
-      </div>
-
-      <button type="submit" disabled={submitting} style={{ marginTop: "20px" }}>
+        />
+        </div>
+      <div className = "actions-row">
+      <button type="submit" disabled={submitting}>
         {submitting ? "Saving..." : submitLabel}
       </button>
+      </div>
     </form>
+    </section>
+    
   );
 }
 
@@ -105,5 +103,25 @@ function Input({ label, name, value, onChange, required = false }) {
         style={{ width: "100%", padding: "8px" }}
       />
     </div>
+  );
+}
+
+function CheckboxCard({ label, subtitle, name, checked, onChange }) {
+  return (
+    <label className="checkbox-card">
+      <input
+        type="checkbox"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+      />
+
+      <span className="checkbox-visual" />
+
+      <span className="checkbox-text">
+        <span className="checkbox-title">{label}</span>
+        <span className="checkbox-subtitle">{subtitle}</span>
+      </span>
+    </label>
   );
 }

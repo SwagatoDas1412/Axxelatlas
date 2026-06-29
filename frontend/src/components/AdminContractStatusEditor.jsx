@@ -115,10 +115,9 @@ export default function AdminContractStatusEditor({ productId }) {
 
   return (
     <section
+    className = "glass-card"
       style={{
-        border: "1px solid #ddd",
-        padding: "16px",
-        marginTop: "32px",
+        marginBottom : "24px"
       }}
     >
       <h2>Manage Contract Status</h2>

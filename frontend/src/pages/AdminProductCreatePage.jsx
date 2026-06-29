@@ -19,6 +19,7 @@ const initialFormData = {
   status: "active",
 };
 
+
 export default function AdminProductCreatePage() {
   const navigate = useNavigate();
 
@@ -45,25 +46,32 @@ export default function AdminProductCreatePage() {
     <>
       <Navbar />
 
-      <main style={{ padding: "24px" }}>
-        <Link to="/admin/products">
-        <button type="button" className="button-secondary">
+      <main className="page-container">
+        <Link to="/admin/products" className="button-secondary">
             ← Back to admin products
-        </button>
         </Link>
 
-        <h1>Add Product</h1>
+        <div className="centered-form-wrap">
+            <div className="hero-card">
+            <div className="page-header">
+                <div className="page-title-block">
+                <h1>Add Product</h1>
+                <p className="page-subtitle">
+                    Create a new product record with metadata, source support, and research visibility.
+                </p>
+                </div>
+            </div>
+            </div>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
-
-        <ProductForm
-          formData={formData}
-          setFormData={setFormData}
-          onSubmit={handleSubmit}
-          submitting={submitting}
-          submitLabel="Create Product"
-        />
-      </main>
+            <ProductForm
+            formData={formData}
+            setFormData={setFormData}
+            onSubmit={handleSubmit}
+            submitting={submitting}
+            submitLabel="Create Product"
+            />
+        </div>
+        </main>
     </>
   );
 }

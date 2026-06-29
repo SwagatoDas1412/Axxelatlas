@@ -78,6 +78,8 @@ export default function AdminProductEditPage() {
         </button>
         </Link>
 
+        <div className="centered-from-wrap">
+
         <div className="hero-card">
         <div className="page-header">
             <div className="page-title-block">
@@ -105,10 +107,9 @@ export default function AdminProductEditPage() {
         {formData && (
           <>
             <section
+            className="glass-card"
               style={{
-                border: "1px solid #ddd",
-                padding: "16px",
-                marginTop: "20px",
+                marginBottom: "24px"
               }}
             >
               <h2>Basic Product Metadata</h2>
@@ -121,9 +122,9 @@ export default function AdminProductEditPage() {
                 submitLabel="Save Changes"
               />
 
-              <div style={{ marginTop: "24px" }}>
+              <div className = "actions-row">
                 <Link to={`/products/${productId}`}>
-                  <button type="button">View Product Detail Page</button>
+                  <button type="button" classNsme="button-secondary">View Product Detail Page</button>
                 </Link>
               </div>
             </section>
@@ -134,6 +135,7 @@ export default function AdminProductEditPage() {
             <AdminContractStatusEditor productId={productId} />
           </>
         )}
+        </div>
       </main>
     </>
   );

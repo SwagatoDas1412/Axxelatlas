@@ -900,3 +900,120 @@ p {
   border-color: rgba(167, 139, 250, 0.58);
   box-shadow: 0 10px 26px rgba(139, 92, 246, 0.16);
 }
+
+.centered-form-wrap {
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+.centered-form-wrap .hero-card {
+  margin-top: 20px;
+}
+
+.centered-form-wrap .form-card,
+.centered-form-wrap form {
+  width: 100%;
+}
+
+.checkbox-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.checkbox-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+  padding: 12px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 16px;
+  color: var(--text-secondary);
+  background: rgba(2, 6, 23, 0.28);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.checkbox-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(56, 189, 248, 0.38);
+  background: rgba(15, 23, 42, 0.64);
+  box-shadow: 0 14px 34px rgba(56, 189, 248, 0.08);
+}
+
+.checkbox-card input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.checkbox-visual {
+  width: 38px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  background: rgba(15, 23, 42, 0.9);
+  position: relative;
+  flex: 0 0 auto;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.checkbox-visual::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 999px;
+  background: #94a3b8;
+  transform: translateY(-50%);
+  transition:
+    left 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+.checkbox-card input:checked + .checkbox-visual {
+  border-color: rgba(56, 189, 248, 0.55);
+  background:
+    linear-gradient(135deg, rgba(56, 189, 248, 0.45), rgba(139, 92, 246, 0.38)),
+    rgba(15, 23, 42, 0.92);
+  box-shadow: 0 0 22px rgba(56, 189, 248, 0.18);
+}
+
+.checkbox-card input:checked + .checkbox-visual::after {
+  left: 18px;
+  background: #ffffff;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.55);
+}
+
+.checkbox-card input:checked ~ .checkbox-text {
+  color: #f8fafc;
+}
+
+.checkbox-text {
+  display: grid;
+  gap: 2px;
+}
+
+.checkbox-title {
+  font-size: 13px;
+  font-weight: 900;
+  color: inherit;
+}
+
+.checkbox-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+}

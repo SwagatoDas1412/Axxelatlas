@@ -130,10 +130,9 @@ export default function AdminDataAvailabilityEditor({ productId }) {
 
   return (
     <section
+    className = "glass-card"
       style={{
-        border: "1px solid #ddd",
-        padding: "16px",
-        marginTop: "32px",
+        marginBottom : "24px"
       }}
     >
       <h2>Manage Data Availability</h2>
