@@ -80,16 +80,9 @@ export default function ProductsPage() {
         </div>
         </div>
 
-        <section className="glass-card" style = {{ marginBotton : "20px"}}>
-        <form
-          onSubmit={handleFilterSubmit}
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, minmax(180px, 1fr))",
-            gap: "12px",
-            marginBottom: "20px",
-          }}
-        >
+        <section className="glass-card" style = {{ marginBottom : "20px"}}>
+        <form onSubmit={handleFilterSubmit} className="product-filter-form">
+        <div className="product-filter-inputs">
           <input
             placeholder="Search product, symbol, description"
             value={search}
@@ -113,41 +106,46 @@ export default function ProductsPage() {
             value={assetClass}
             onChange={(event) => setAssetClass(event.target.value)}
           />
+        </div>
 
-          <label>
-            <input
-              type="checkbox"
-              checked={maintainedOnly}
-              onChange={(event) => setMaintainedOnly(event.target.checked)}
-            />
-            Maintained only
-          </label>
+        <div className="product-filter-bottom-row">
+          <CheckboxCard
+            label="Maintained"
+            subtitle="Maintained only"
+            name="maintainedOnly"
+            checked={maintainedOnly}
+            onChange={(event) => setMaintainedOnly(event.target.checked)}
+          />
 
-          <label>
-            <input
-              type="checkbox"
-              checked={databentoOnly}
-              onChange={(event) => setDatabentoOnly(event.target.checked)}
-            />
-            Databento only
-          </label>
+          <CheckboxCard
+            label="Databento"
+            subtitle="Databento only"
+            name="databentoOnly"
+            checked={databentoOnly}
+            onChange={(event) => setDatabentoOnly(event.target.checked)}
+          />
 
-          <label>
-            <input
-              type="checkbox"
-              checked={massiveOnly}
-              onChange={(event) => setMassiveOnly(event.target.checked)}
-            />
-            Massive only
-          </label>
+          <CheckboxCard
+            label="Massive"
+            subtitle="Massive only"
+            name="massiveOnly"
+            checked={massiveOnly}
+            onChange={(event) => setMassiveOnly(event.target.checked)}
+          />
 
-          <div>
+          <div className="product-filter-actions">
             <button type="submit">Apply Filters</button>
-            <button type="button" onClick={clearFilters} style={{ marginLeft: "8px" }}>
+
+            <button
+              type="button"
+              className="button-secondary"
+              onClick={clearFilters}
+            >
               Clear
             </button>
           </div>
-        </form>
+        </div>
+      </form>
         </section>
 
         {loading && <p>Loading products...</p>}
@@ -216,5 +214,25 @@ export default function ProductsPage() {
         )}
       </main>
     </>
+  );
+}
+
+function CheckboxCard({ label, subtitle, name, checked, onChange }) {
+  return (
+    <label className="checkbox-card">
+      <input
+        type="checkbox"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+      />
+
+      <span className="checkbox-visual" />
+
+      <span className="checkbox-text">
+        <span className="checkbox-title">{label}</span>
+        <span className="checkbox-subtitle">{subtitle}</span>
+      </span>
+    </label>
   );
 }

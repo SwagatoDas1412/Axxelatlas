@@ -112,7 +112,7 @@ def list_all_requests(
     db: Session = Depends(get_db),
 ):
     data_requests =  db.query(DataRequest).order_by(DataRequest.created_at.desc()).all()
-    return [enrich_request(data_request) for data_request in data_requests]
+    return [enrich_request(data_request, db) for data_request in data_requests]
 
 
 @router.put("/{request_id}", response_model=DataRequestOut)

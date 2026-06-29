@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -14,7 +15,11 @@ export default function Navbar() {
     <nav className="nav-shell">
       <div className="nav-inner">
         <Link to="/products" className="brand-mark">
-          <span className="brand-icon" />
+          <img
+            src="/download.png"
+            alt="Axxela logo"
+            className="brand-logo"
+            />
           <span>Axxelatlas</span>
         </Link>
 
@@ -39,7 +44,7 @@ export default function Navbar() {
             {user.name} · {user.role}
           </span>
         )}
-
+        <ThemeToggle />
         <button onClick={handleLogout}>Logout</button>
       </div>
     </nav>
